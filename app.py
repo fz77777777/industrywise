@@ -191,11 +191,24 @@ if not df_stocks.empty:
             display_df.columns = ['Stock Name', 'Ticker Code', 'Market Cap', 'Volume Spike (x times)', 'Price Change (%)']
             
             # Highlight Rows using Streamlit dataframe features
+            # Yeh naya code paste karein:
+
             st.dataframe(
-                display_df.style.background_gradient(subset=['Volume Spike (x times)'], cmap='YlOrRd')
-                                .format({'Price Change (%)': '{:.2f}%', 'Volume Spike (x times)': '{:.2f}x'}),
+
+                display_df,
+
                 use_container_width=True,
-                hide_index=True
+
+                hide_index=True,
+
+                column_config={
+
+                    "Volume Spike (x times)": st.column_config.NumberColumn(format="%.2fx"),
+
+                    "Price Change (%)": st.column_config.NumberColumn(format="%.2f%%")
+
+                }
+
             )
 else:
     st.info("Koi valid data load nahi hua. Kripya refresh karein.")
